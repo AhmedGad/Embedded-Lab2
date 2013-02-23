@@ -21,9 +21,9 @@ import org.kxml.parser.*;
 /**
  * @author Ahmed
  */
-public class Upload extends MIDlet implements CommandListener, ItemStateListener {
+public class Delete extends MIDlet implements CommandListener, ItemStateListener {
 
-    private String url = "http://embedded-lab.heroku.com/documents.xml";
+    private String url = "http://embedded-lab.heroku.com/documents/7170.xml";
     StringBuffer b = new StringBuffer();
     InputStream in = null;
     HttpConnection httpConn = null;
@@ -36,22 +36,16 @@ public class Upload extends MIDlet implements CommandListener, ItemStateListener
             httpConn = (HttpConnection) Connector.open(url);
 
             httpConn.setRequestMethod(HttpConnection.POST);
-
+            
             OutputStream os = httpConn.openOutputStream();
 
             //document[title], document[author], document[content]
-            String param = "document[title]=BestCase&document[author]=Gad&document[content]=Ay7aga";
+            String param = "_method=DELETE";
             os.write(param.getBytes());
 
             
-            in = httpConn.openInputStream();
-
-            parser = new XmlParser(new InputStreamReader(in));
-            doc.parse(parser);
+            httpConn.openInputStream();
             
-            System.out.println(doc.getRootElement());
-
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }

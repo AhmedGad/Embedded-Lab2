@@ -55,14 +55,10 @@ public class ListAll extends MIDlet implements CommandListener, ItemStateListene
             httpConn = (HttpConnection) Connector.open(url);
             
             httpConn.setRequestMethod(HttpConnection.GET);
-            httpConn.setRequestProperty("User-Agent",
-                    "Profile/MIDP-1.0 Confirguration/CLDC-1.0");
-
+            
             in = httpConn.openInputStream();
 
-            InputStreamReader is = new InputStreamReader(in);
-
-            parser = new XmlParser(is);
+            parser = new XmlParser(new InputStreamReader(in));
             doc.parse(parser);
             parser = null;
 
@@ -74,12 +70,11 @@ public class ListAll extends MIDlet implements CommandListener, ItemStateListene
 
         Element root = doc.getRootElement();
 
-//        printAttribute(root);
+
         int n = root.getChildCount(), tmp = 0;
-//        System.out.println(root);
+
         for (int i = 0; i < n; i++) {
             if (root.getType(i) == Xml.ELEMENT) {
-//                System.out.println(root.getElement(i));
                 print2lLevelElements(root.getElement(i));
             }
         }

@@ -21,9 +21,9 @@ import org.kxml.parser.*;
 /**
  * @author Ahmed
  */
-public class Upload extends MIDlet implements CommandListener, ItemStateListener {
+public class Update extends MIDlet implements CommandListener, ItemStateListener {
 
-    private String url = "http://embedded-lab.heroku.com/documents.xml";
+    private String url = "http://embedded-lab.heroku.com/documents/7170.xml";
     StringBuffer b = new StringBuffer();
     InputStream in = null;
     HttpConnection httpConn = null;
@@ -40,18 +40,13 @@ public class Upload extends MIDlet implements CommandListener, ItemStateListener
             OutputStream os = httpConn.openOutputStream();
 
             //document[title], document[author], document[content]
-            String param = "document[title]=BestCase&document[author]=Gad&document[content]=Ay7aga";
+            String param = "document[title]=BestCase7&document[author]=Gad3&document[content]=Ay7aga3&_method=PUT";
             os.write(param.getBytes());
-
             
-            in = httpConn.openInputStream();
-
-            parser = new XmlParser(new InputStreamReader(in));
-            doc.parse(parser);
+            //you must get the returned value from the server
+            httpConn.openInputStream();
             
-            System.out.println(doc.getRootElement());
-
-
+            System.out.println("FINISH");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
