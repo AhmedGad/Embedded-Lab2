@@ -31,14 +31,22 @@ public class Lab2 extends MIDlet implements CommandListener, ItemStateListener {
     XmlParser parser = null;
     Document doc = new Document();
 
-    void printAttribute(Element elem) {
+    void print2lLevelElements(Element lev1) {
         System.out.println("=======================");
-        System.out.println(elem);
+        System.out.println(lev1);
         System.out.println("========================");
-        int n = elem.getChildCount();
+        int n = lev1.getChildCount();
         System.out.println(n);
         for (int i = 0; i < n; i++) {
-            System.out.println(elem.getChild(i));
+            if (lev1.getType(i) == Xml.ELEMENT) {
+                System.out.println("         "+lev1.getChild(i));
+                Element lev2 = lev1.getElement(i);
+                int nn = lev2.getChildCount();
+                System.out.println("         "+nn);
+                for (int j = 0; j < nn; j++) {
+                System.out.println("         "+lev2.getChild(j));    
+                }
+            }
         }
     }
 
@@ -66,7 +74,7 @@ public class Lab2 extends MIDlet implements CommandListener, ItemStateListener {
         for (int i = 0; i < n; i++) {
             if (root.getType(i) == Xml.ELEMENT) {
 //                System.out.println(root.getElement(i));
-                printAttribute(root.getElement(i));
+                print2lLevelElements(root.getElement(i));
             }
         }
     }
